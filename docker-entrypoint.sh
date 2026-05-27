@@ -1,13 +1,13 @@
 #!/bin/sh
 set -e
 envsubst '${QUARTZ_PAGE_TITLE} ${QUARTZ_BASE_URL}' \
-  < /quartz/quartz.config.default.yaml \
+  < /usr/src/app/quartz.config.default.yaml \
   > /tmp/quartz.config.patched.yaml
-cp /tmp/quartz.config.patched.yaml /quartz/quartz.config.default.yaml
+cp /tmp/quartz.config.patched.yaml /usr/src/app/quartz.config.default.yaml
 
 envsubst '${QUARTZ_PAGE_TITLE} ${QUARTZ_SHORT_NAME}' \
-  < /quartz/quartz/static/manifest.json \
+  < /usr/src/app/quartz/static/manifest.json \
   > /tmp/manifest.patched.json
-cp /tmp/manifest.patched.json /quartz/quartz/static/manifest.json
+cp /tmp/manifest.patched.json /usr/src/app/quartz/static/manifest.json
 
 exec "$@"
