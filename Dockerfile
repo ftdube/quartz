@@ -4,10 +4,16 @@ COPY package.json .
 COPY package-lock.json* .
 COPY quartz/ ./quartz/
 COPY quartz.lock.json .
-RUN npm ci; npx quartz plugin install
+RUN npm ci
 
 FROM node:22-slim
+RUN apt-get update && apt-get install -y --no-install-recommends gettext-base && rm -rf /var/lib/apt/lists/*
 WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app/ /usr/src/app/
 COPY . .
-CMD ["npx", "quartz", "build", "--serve"]
+ENV QUARTZ_PAGE_TITLE="Second Brain"
+ENV QUARTZ_SHORT_NAME="Vault"
+ENV QUARTZ_BASE_URL="vault.home"
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+ENTRYPOINT ["docker-entrypoint.sh"]

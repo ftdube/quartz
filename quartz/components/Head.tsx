@@ -92,6 +92,10 @@ export default (() => {
         )}
 
         <link rel="icon" href={iconPath} />
+        <link rel="manifest" href="/static/manifest.json" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-title" content={cfg.pageTitle} />
         <meta name="description" content={description} />
         <meta name="generator" content="Quartz" />
 
